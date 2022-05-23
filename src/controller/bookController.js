@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const userModel = require("../model/userModel");
 const bookModel = require("../model/bookModel");
+const { request } = require("express");
 
 const createBooks = async function (req, res) {
   try {
@@ -14,6 +15,7 @@ const createBooks = async function (req, res) {
 
     let {
       title,
+      bookcover,
       userId,
       excerpt,
       ISBN,
@@ -33,7 +35,6 @@ const createBooks = async function (req, res) {
         .status(400)
         .send({ status: false, msg: "this book already exist" });
     // authorId validation
-
     if (!userId) {
       return res
         .status(400)
@@ -59,6 +60,8 @@ const createBooks = async function (req, res) {
         .send({ status: false, msg: "this user is not present." });
     }
     //  accessing the payload authorId from request
+    // let uploadedFileURL = await uploadedFile(files[0]);
+    // requestBody.bookcover = uploadedFileURL
     let token = req["userId"];
 
     //  authorization
