@@ -37,15 +37,15 @@ let uploadFile= async ( file) =>{
 
     var uploadParams= {
         ACL: "public-read",
-        Bucket: "classroom-training-bucket",  //HERE
-        Key: "abc/" + file.originalname, //HERE 
-        Body: file.buffer
+        Bucket: "classroom-training-bucket",  //HERE folder
+        Key: "abc/" + file.originalname, //HERE subfolder
+        Body: file.buffer //small amount of data
     }
 
 
     s3.upload( uploadParams, function (err, data ){
         if(err) {
-            return reject({"error": err})
+            return reject({"error": err})  //as a promise
         }
         console.log(data)
         console.log("file uploaded succesfully")
@@ -79,9 +79,6 @@ router.post("/write-file-aws", async function(req, res){
     }
     
 })
-
-
-
 
 router.post("/register", user.createuser)
 
